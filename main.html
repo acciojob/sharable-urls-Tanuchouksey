@@ -1,8 +1,53 @@
 <!DOCTYPE html>
-<html>
-  <body>
-    <script type="text/javascript" src="./script.js">
-</script>
-  </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sharable URL Generator</title>
+</head>
+<body>
 
+    <!-- Input Form -->
+    <form id="urlForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name">
+
+        <label for="year">Year:</label>
+        <input type="number" id="year" name="year" placeholder="Enter the year">
+
+        <button type="button" id="button">Submit</button>
+    </form>
+
+    <!-- URL Display -->
+    <h3 id="url">https://localhost:8080/</h3>
+
+    <script>
+        // JavaScript to update the URL
+        document.getElementById("button").addEventListener("click", function () {
+            // Get the input values
+            const name = document.getElementById("name").value;
+            const year = document.getElementById("year").value;
+            let url = "https://localhost:8080/";
+
+            // Check if there's at least one parameter to include
+            if (name || year) {
+                url += "?"; // Begin query string
+
+                // Add 'name' parameter if it has a value
+                if (name) {
+                    url += `name=${encodeURIComponent(name)}`;
+                }
+
+                // Add '&year' if 'year' has a value and name exists
+                if (year) {
+                    url += name ? `&year=${encodeURIComponent(year)}` : `year=${encodeURIComponent(year)}`;
+                }
+            }
+
+            // Update the URL display
+            document.getElementById("url").textContent = url;
+        });
+    </script>
+
+</body>
 </html>
